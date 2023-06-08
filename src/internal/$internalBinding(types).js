@@ -1,19 +1,9 @@
-import {
-  DatePrototypeValueOf,
-  ObjectPrototypeToString,
-  BigIntPrototypeValueOf,
-  BooleanPrototypeValueOf,
-  NumberPrototypeValueOf,
-  StringPrototypeValueOf,
-  SymbolPrototypeValueOf,
-} from "#$primordials";
-
-export function isExternal(x) {
+function isExternal(x) {
   // TODO: Better check!
   return false;
 }
 
-export function isDate(x) {
+function isDate(x) {
   try {
     DatePrototypeValueOf(x);
   } catch {
@@ -22,7 +12,7 @@ export function isDate(x) {
   return true;
 }
 
-export function isArgumentsObject(x) {
+function isArgumentsObject(x) {
   return (
     x &&
     !(Symbol.toStringTag in x) &&
@@ -30,7 +20,7 @@ export function isArgumentsObject(x) {
   );
 }
 
-export function isBigIntObject(x) {
+function isBigIntObject(x) {
   if (typeof x !== "object") {
     return false;
   }
@@ -43,7 +33,7 @@ export function isBigIntObject(x) {
   return true;
 }
 
-export function isBooleanObject(x) {
+function isBooleanObject(x) {
   if (typeof x !== "object") {
     return false;
   }
@@ -56,7 +46,7 @@ export function isBooleanObject(x) {
   return true;
 }
 
-export function isNumberObject(x) {
+function isNumberObject(x) {
   if (typeof x !== "object") {
     return false;
   }
@@ -69,7 +59,7 @@ export function isNumberObject(x) {
   return true;
 }
 
-export function isStringObject(x) {
+function isStringObject(x) {
   if (typeof x !== "object") {
     return false;
   }
@@ -82,7 +72,7 @@ export function isStringObject(x) {
   return true;
 }
 
-export function isSymbolObject(x) {
+function isSymbolObject(x) {
   if (typeof x !== "object") {
     return false;
   }
@@ -95,7 +85,7 @@ export function isSymbolObject(x) {
   return true;
 }
 
-export function isNativeError(x) {
+function isNativeError(x) {
   return (
     !!x &&
     !(Symbol.toStringTag in x) &&
@@ -103,7 +93,7 @@ export function isNativeError(x) {
   );
 }
 
-export function isRegExp(x) {
+function isRegExp(x) {
   try {
     RegExpPrototypeGetGlobal(x);
   } catch {
@@ -112,21 +102,21 @@ export function isRegExp(x) {
   return true;
 }
 
-export function isAsyncFunction(x) {
+function isAsyncFunction(x) {
   return (
     typeof x === "function" &&
     /^async\s+/.test(Function.prototype.toString.call(x))
   );
 }
 
-export function isGeneratorFunction(x) {
+function isGeneratorFunction(x) {
   return (
     typeof x === "function" &&
     /^(?:async\s+)?function\s*\*/.test(Function.prototype.toString.call(x))
   );
 }
 
-export function isGeneratorObject(x) {
+function isGeneratorObject(x) {
   // TODO: Better check!
   return (
     typeof x === "object" &&
@@ -134,7 +124,7 @@ export function isGeneratorObject(x) {
   );
 }
 
-export function isPromise(x) {
+function isPromise(x) {
   // TODO: Better check!
   return (
     typeof x === "object" &&
@@ -142,7 +132,7 @@ export function isPromise(x) {
   );
 }
 
-export function isMap(x) {
+function isMap(x) {
   try {
     Object.getOwnPropertyDescriptor(Map.prototype, "size").get.call(x);
   } catch {
@@ -151,7 +141,7 @@ export function isMap(x) {
   return true;
 }
 
-export function isSet(x) {
+function isSet(x) {
   try {
     Object.getOwnPropertyDescriptor(Set.prototype, "size").get.call(x);
   } catch {
@@ -160,7 +150,7 @@ export function isSet(x) {
   return true;
 }
 
-export function isMapIterator(x) {
+function isMapIterator(x) {
   // TODO: Better check!
   return (
     typeof x === "object" &&
@@ -168,7 +158,7 @@ export function isMapIterator(x) {
   );
 }
 
-export function isSetIterator(x) {
+function isSetIterator(x) {
   // TODO: Better check!
   return (
     typeof x === "object" &&
@@ -176,7 +166,7 @@ export function isSetIterator(x) {
   );
 }
 
-export function isWeakMap(x) {
+function isWeakMap(x) {
   try {
     WeakMap.prototype.has.call(x);
   } catch {
@@ -185,7 +175,7 @@ export function isWeakMap(x) {
   return true;
 }
 
-export function isWeakSet(x) {
+function isWeakSet(x) {
   try {
     WeakSet.prototype.has.call(x);
   } catch {
@@ -194,7 +184,7 @@ export function isWeakSet(x) {
   return true;
 }
 
-export function isArrayBuffer(x) {
+function isArrayBuffer(x) {
   try {
     Object.getOwnPropertyDescriptor(
       ArrayBuffer.prototype,
@@ -206,7 +196,7 @@ export function isArrayBuffer(x) {
   return true;
 }
 
-export function isDataView(x) {
+function isDataView(x) {
   try {
     Object.getOwnPropertyDescriptor(DataView.prototype, "buffer").get.call(x);
   } catch {
@@ -215,7 +205,7 @@ export function isDataView(x) {
   return true;
 }
 
-export function isSharedArrayBuffer(x) {
+function isSharedArrayBuffer(x) {
   if (typeof SharedArrayBuffer === "undefined") {
     return false;
   }
@@ -240,11 +230,11 @@ Proxy = new Proxy(Proxy, {
   },
 });
 proxies.add(Proxy);
-export function isProxy(x) {
+function isProxy(x) {
   return proxies.has(x);
 }
 
-export function isModuleNamespaceObject(x) {
+function isModuleNamespaceObject(x) {
   if (typeof x !== "object") {
     return false;
   }
@@ -262,11 +252,11 @@ export function isModuleNamespaceObject(x) {
 
 /* -------------------------------------------------------------------------- */
 
-export function isAnyArrayBuffer(x) {
+function isAnyArrayBuffer(x) {
   return isArrayBuffer(x) || isSharedArrayBuffer(x);
 }
 
-export function isBoxedPrimitive(x) {
+function isBoxedPrimitive(x) {
   return (
     isNumberObject(x) ||
     isStringObject(x) ||
@@ -274,4 +264,7 @@ export function isBoxedPrimitive(x) {
     isBigIntObject(x) ||
     isSymbolObject(x)
   );
+}
+
+module.exports = {
 }

@@ -1,4 +1,27 @@
-import {
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+'use strict';
+
+const {
   ArrayIsArray,
   ArrayPrototypeJoin,
   ArrayPrototypePop,
@@ -20,141 +43,213 @@ import {
   ObjectValues,
   ReflectApply,
   StringPrototypePadStart,
-} from "#$primordials";
+} = require('#primordials');
 
-import {
-  codes as _codes,
+const {
+  codes: {
+    ERR_FALSY_VALUE_REJECTION,
+    ERR_INVALID_ARG_TYPE,
+    ERR_OUT_OF_RANGE,
+  },
   errnoException,
   exceptionWithHostPort,
   hideStackFrames,
-} from "#internal/errors";
-const { ERR_FALSY_VALUE_REJECTION, ERR_INVALID_ARG_TYPE, ERR_OUT_OF_RANGE } =
-  _codes;
-import {
+} = require('#internal/errors');
+const {
   format,
   formatWithOptions,
   inspect,
   stripVTControlCharacters,
-} from "internal/util/inspect";
-import { debuglog } from "#internal/util/debuglog";
-import { validateFunction, validateNumber } from "#internal/validators";
-import { Buffer as _Buffer } from "#buffer";
-const { isBuffer } = _Buffer;
-import * as types from "#internal/util/types";
+} = require('#internal/util/inspect');
+const { debuglog } = require('#internal/util/debuglog');
+const {
+  validateFunction,
+  validateNumber,
+} = require('#internal/validators');
+const { isBuffer } = require('#buffer').Buffer;
+const types = require('#internal/util/types');
 
-import {
+const {
   deprecate,
   getSystemErrorMap,
-  internalErrorName as getSystemErrorName,
+  getSystemErrorName: internalErrorName,
   promisify,
   toUSVString,
   defineLazyProperties,
-} from "#internal/util";
+} = require('#internal/util');
 
-import {
-  transferableAbortSignal as abortController_transferableAbortSignal,
-  transferableAbortController as abortController_transferableAbortController,
-  aborted as abortController_aborted,
-} from "#internal/abort_controller";
+let abortController;
+
+function lazyAbortController() {
+  abortController ??= require('#internal/abort_controller');
+  return abortController;
+}
 
 let internalDeepEqual;
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} arg
+ * @returns {arg is boolean}
+ */
 function isBoolean(arg) {
-  return typeof arg === "boolean";
+  return typeof arg === 'boolean';
 }
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} arg
+ * @returns {arg is null}
+ */
 function isNull(arg) {
   return arg === null;
 }
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} arg
+ * @returns {arg is (null | undefined)}
+ */
 function isNullOrUndefined(arg) {
   return arg === null || arg === undefined;
 }
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} arg
+ * @returns {arg is number}
+ */
 function isNumber(arg) {
-  return typeof arg === "number";
+  return typeof arg === 'number';
 }
 
+/**
+ * @param {any} arg
+ * @returns {arg is string}
+ */
 function isString(arg) {
-  return typeof arg === "string";
+  return typeof arg === 'string';
 }
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} arg
+ * @returns {arg is symbol}
+ */
 function isSymbol(arg) {
-  return typeof arg === "symbol";
+  return typeof arg === 'symbol';
 }
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} arg
+ * @returns {arg is undefined}
+ */
 function isUndefined(arg) {
   return arg === undefined;
 }
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} arg
+ * @returns {a is NonNullable<object>}
+ */
 function isObject(arg) {
-  return arg !== null && typeof arg === "object";
+  return arg !== null && typeof arg === 'object';
 }
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} e
+ * @returns {arg is Error}
+ */
 function isError(e) {
-  return ObjectPrototypeToString(e) === "[object Error]" || e instanceof Error;
+  return ObjectPrototypeToString(e) === '[object Error]' || e instanceof Error;
 }
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} arg
+ * @returns {arg is Function}
+ */
 function isFunction(arg) {
-  return typeof arg === "function";
+  return typeof arg === 'function';
 }
 
+/**
+ * @deprecated since v4.0.0
+ * @param {any} arg
+ * @returns {arg is (boolean | null | number | string | symbol | undefined)}
+ */
 function isPrimitive(arg) {
-  return arg === null || (typeof arg !== "object" && typeof arg !== "function");
+  return arg === null ||
+         (typeof arg !== 'object' && typeof arg !== 'function');
 }
 
+/**
+ * @param {number} n
+ * @returns {string}
+ */
 function pad(n) {
-  return StringPrototypePadStart(n.toString(), 2, "0");
+  return StringPrototypePadStart(n.toString(), 2, '0');
 }
 
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+                'Oct', 'Nov', 'Dec'];
 
+/**
+ * @returns {string}  26 Feb 16:19:34
+ */
 function timestamp() {
   const d = new Date();
-  const t = ArrayPrototypeJoin(
-    [
-      pad(DatePrototypeGetHours(d)),
-      pad(DatePrototypeGetMinutes(d)),
-      pad(DatePrototypeGetSeconds(d)),
-    ],
-    ":"
-  );
+  const t = ArrayPrototypeJoin([
+    pad(DatePrototypeGetHours(d)),
+    pad(DatePrototypeGetMinutes(d)),
+    pad(DatePrototypeGetSeconds(d)),
+  ], ':');
   return `${DatePrototypeGetDate(d)} ${months[DatePrototypeGetMonth(d)]} ${t}`;
 }
 
-import { log as console_log} from "#internal/console/global"
+let console;
+/**
+ * Log is just a thin wrapper to console.log that prepends a timestamp
+ * @deprecated since v6.0.0
+ * @type {(...args: any[]) => void}
+ */
 function log(...args) {
-  console_log("%s - %s", timestamp(), format(...args));
+  if (!console) {
+    console = require('#internal/console/global');
+  }
+  console.log('%s - %s', timestamp(), format(...args));
 }
 
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * The Function.prototype.inherits from lang.js rewritten as a standalone
+ * function (not on Function.prototype). NOTE: If this file is to be loaded
+ * during bootstrapping this function needs to be rewritten using some native
+ * functions as prototype setup using normal JavaScript does not work as
+ * expected during bootstrapping (see mirror.js in r114903).
+ * @param {Function} ctor Constructor function which needs to inherit the
+ *     prototype.
+ * @param {Function} superCtor Constructor function to inherit prototype from.
+ * @throws {TypeError} Will error if either constructor is null, or if
+ *     the super constructor lacks a prototype.
+ */
 function inherits(ctor, superCtor) {
+
   if (ctor === undefined || ctor === null)
-    throw new ERR_INVALID_ARG_TYPE("ctor", "Function", ctor);
+    throw new ERR_INVALID_ARG_TYPE('ctor', 'Function', ctor);
 
   if (superCtor === undefined || superCtor === null)
-    throw new ERR_INVALID_ARG_TYPE("superCtor", "Function", superCtor);
+    throw new ERR_INVALID_ARG_TYPE('superCtor', 'Function', superCtor);
 
   if (superCtor.prototype === undefined) {
-    throw new ERR_INVALID_ARG_TYPE(
-      "superCtor.prototype",
-      "Object",
-      superCtor.prototype
-    );
+    throw new ERR_INVALID_ARG_TYPE('superCtor.prototype',
+                                   'Object', superCtor.prototype);
   }
-  ObjectDefineProperty(ctor, "super_", {
+  ObjectDefineProperty(ctor, 'super_', {
     __proto__: null,
     value: superCtor,
     writable: true,
@@ -163,9 +258,17 @@ function inherits(ctor, superCtor) {
   ObjectSetPrototypeOf(ctor.prototype, superCtor.prototype);
 }
 
+/**
+ * @deprecated since v6.0.0
+ * @template T
+ * @template S
+ * @param {T} target
+ * @param {S} source
+ * @returns {S extends null ? T : (T & S)}
+ */
 function _extend(target, source) {
   // Don't do anything if source isn't an object
-  if (source === null || typeof source !== "object") return target;
+  if (source === null || typeof source !== 'object') return target;
 
   const keys = ObjectKeys(source);
   let i = keys.length;
@@ -186,53 +289,64 @@ const callbackifyOnRejected = hideStackFrames((reason, cb) => {
   return cb(reason);
 });
 
+/**
+ * @template {(...args: any[]) => Promise<any>} T
+ * @param {T} original
+ * @returns {T extends (...args: infer TArgs) => Promise<infer TReturn> ?
+ *   ((...params: [...TArgs, ((err: Error, ret: TReturn) => any)]) => void) :
+ *   never
+ * }
+ */
 function callbackify(original) {
-  validateFunction(original, "original");
+  validateFunction(original, 'original');
 
   // We DO NOT return the promise as it gives the user a false sense that
   // the promise is actually somehow related to the callback's execution
   // and that the callback throwing will reject the promise.
   function callbackified(...args) {
     const maybeCb = ArrayPrototypePop(args);
-    validateFunction(maybeCb, "last argument");
+    validateFunction(maybeCb, 'last argument');
     const cb = FunctionPrototypeBind(maybeCb, this);
     // In true node style we process the callback on `nextTick` with all the
     // implications (stack, `uncaughtException`, `async_hooks`)
-    ReflectApply(original, this, args).then(
-      (ret) => process.nextTick(cb, null, ret),
-      (rej) => process.nextTick(callbackifyOnRejected, rej, cb)
-    );
+    ReflectApply(original, this, args)
+      .then((ret) => process.nextTick(cb, null, ret),
+            (rej) => process.nextTick(callbackifyOnRejected, rej, cb));
   }
 
   const descriptors = ObjectGetOwnPropertyDescriptors(original);
   // It is possible to manipulate a functions `length` or `name` property. This
   // guards against the manipulation.
-  if (typeof descriptors.length.value === "number") {
+  if (typeof descriptors.length.value === 'number') {
     descriptors.length.value++;
   }
-  if (typeof descriptors.name.value === "string") {
-    descriptors.name.value += "Callbackified";
+  if (typeof descriptors.name.value === 'string') {
+    descriptors.name.value += 'Callbackified';
   }
   const propertiesValues = ObjectValues(descriptors);
   for (let i = 0; i < propertiesValues.length; i++) {
-    // We want to use null-prototype objects to not rely on globally mutable
-    // %Object.prototype%.
+  // We want to use null-prototype objects to not rely on globally mutable
+  // %Object.prototype%.
     ObjectSetPrototypeOf(propertiesValues[i], null);
   }
   ObjectDefineProperties(callbackified, descriptors);
   return callbackified;
 }
 
+/**
+ * @param {number} err
+ * @returns {string}
+ */
 function getSystemErrorName(err) {
-  validateNumber(err, "err");
+  validateNumber(err, 'err');
   if (err >= 0 || !NumberIsSafeInteger(err)) {
-    throw new ERR_OUT_OF_RANGE("err", "a negative integer", err);
+    throw new ERR_OUT_OF_RANGE('err', 'a negative integer', err);
   }
   return internalErrorName(err);
 }
 
 // Keep the `exports =` so that various functions can still be monkeypatched
-const exports = {
+module.exports = {
   _errnoException: errnoException,
   _exceptionWithHostPort: exceptionWithHostPort,
   _extend,
@@ -251,8 +365,8 @@ const exports = {
   isBuffer,
   isDeepStrictEqual(a, b) {
     if (internalDeepEqual === undefined) {
-      internalDeepEqual =
-        require("internal/util/comparisons").isDeepStrictEqual;
+      internalDeepEqual = require('#internal/util/comparisons')
+        .isDeepStrictEqual;
     }
     return internalDeepEqual(a, b);
   },
@@ -284,16 +398,20 @@ const exports = {
   types,
 };
 
-defineLazyProperties(module.exports, "internal/util/parse_args/parse_args", [
-  "parseArgs",
-]);
+defineLazyProperties(
+  module.exports,
+  '#internal/util/parse_args/parse_args',
+  ['parseArgs'],
+);
 
-defineLazyProperties(module.exports, "internal/encoding", [
-  "TextDecoder",
-  "TextEncoder",
-]);
+defineLazyProperties(
+  module.exports,
+  '#internal/encoding',
+  ['TextDecoder', 'TextEncoder'],
+);
 
-defineLazyProperties(module.exports, "internal/mime", [
-  "MIMEType",
-  "MIMEParams",
-]);
+defineLazyProperties(
+  module.exports,
+  '#internal/mime',
+  ['MIMEType', 'MIMEParams'],
+);

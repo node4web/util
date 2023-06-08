@@ -1,1 +1,3 @@
-export const { log } = console;
+//
+"use strict";
+module.exports = console;

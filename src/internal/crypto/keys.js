@@ -2,6 +2,7 @@
 // WHERE const kKeyObject = Symbol('kKeyObject');
 
 // const kKeyType = Symbol('kKeyType');
+"use strict";
 
 function isKeyObject(obj) {
   const kKeyType = Object.getOwnPropertySymbols(obj).find(
@@ -21,4 +22,7 @@ function isCryptoKey(obj) {
   return obj != null && obj_kKeyObject !== undefined;
 }
 
-export { isKeyObject, isCryptoKey };
+module.exports = {
+  isKeyObject,
+  isCryptoKey,
+};

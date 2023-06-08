@@ -1,50 +1,60 @@
 {
-  "name": "util",
-  "description": "Node.js's util module for all engines",
-  "version": "0.12.5",
-  "author": {
-    "name": "Joyent",
-    "url": "http://www.joyent.com"
-  },
-  "browser": {
-    "./support/isBuffer.js": "./support/isBufferBrowser.js"
-  },
-  "dependencies": {
-    "inherits": "^2.0.3",
-    "is-arguments": "^1.0.4",
-    "is-generator-function": "^1.0.7",
-    "is-typed-array": "^1.1.3",
-    "which-typed-array": "^1.1.2"
-  },
-  "devDependencies": {
-    "airtap": "~1.0.0",
-    "core-js": "^3.6.5",
-    "is-async-supported": "~1.2.0",
-    "object.assign": "~4.1.0",
-    "object.entries": "^1.1.0",
-    "run-series": "~1.1.4",
-    "safe-buffer": "^5.1.2",
-    "tape": "~4.9.0"
-  },
+  "type": "commonjs",
+  "name": "@jcbhmr/node-util",
+  "description": "🧰 Node.js node:util extracted for use anywhere",
+  "version": "1.0.0",
+  "author": "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)",
   "files": [
-    "util.js",
-    "support"
+    "dist"
   ],
-  "homepage": "https://github.com/browserify/node-util",
+  "homepage": "https://jcbhmr.github.io/node-util/",
   "keywords": [
-    "util"
+    "util",
+    "nodejs",
+    "polyfill",
+    "types",
+    "typechecking",
+    "introspection"
   ],
   "license": "MIT",
-  "main": "./util.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/browserify/node-util"
+  "repository": "github:jcbhmr/node-util",
+  "imports": {
+    "#internal/*": "./src/internal/*.js",
+    "#$*": "./src/internal/$*.js"
+  },
+  "exports": {
+    ".": {
+      "node": {
+        "types": "./node-util.d.ts",
+        "import": "./node-util.mjs",
+        "require": "./node-util.cjs"
+      },
+      "default": "./src/util.js"
+    },
+    "./types": {
+      "node": {
+        "types": "./node-util-types.d.ts",
+        "import": "./node-util-types.mjs",
+        "require": "./node-util-types.cjs"
+      },
+      "default": "./src/util/types.js"
+    }
   },
   "scripts": {
-    "test": "node test/node/index.js",
-    "test:browsers": "airtap test/browser/index.js",
-    "test:browsers:with-polyfills": "airtap test/browser/with-polyfills.js",
-    "test:browsers:with-polyfills:local": "npm run test:browsers:with-polyfills -- --local",
-    "test:browsers:local": "npm run test:browsers -- --local"
+    "prepack": "cp node_modules/@types/node/util.d.ts node-util.d.ts && cp node_modules/@types/node/util/types.d.ts node-util-types.d.ts",
+    "test": "node --test",
+    "build:docs": "echo '{}' >tsconfig.json && typedoc; rm tsconfig.json"
+  },
+  "typedocOptions": {
+    "entryPoints": [
+      "src/util.d.ts",
+      "src/util/types.d.ts"
+    ],
+    "out": "docs/dist"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "typedoc": "^0.24.8",
+    "typescript": "^5.1.3"
   }
 }

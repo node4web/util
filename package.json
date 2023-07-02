@@ -1,6 +1,6 @@
 {
   "name": "@nodefill/util",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "🧰 node:util for use anywhere",
   "keywords": [
     "util",

@@ -1,4 +1,6 @@
 "use strict";
+const globalThis = require("@nodefill/primordials/globalThis.js");
+
 const AbortController = globalThis.AbortController;
 
 /** @returns {AbortController} */

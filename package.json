@@ -1,13 +1,15 @@
 {
   "type": "commonjs",
-  "name": "@jcbhmr/node-util",
-  "description": "🧰 Node.js node:util extracted for use anywhere",
+  "name": "@nodefill/util",
+  "description": "🧰 node:util for use anywhere",
   "version": "1.0.0",
-  "author": "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)",
+  "contributors": [
+    "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)"
+  ],
   "files": [
     "dist"
   ],
-  "homepage": "https://jcbhmr.github.io/node-util/",
+  "homepage": "https://github.com/nodefill/util#readme",
   "keywords": [
     "util",
     "nodejs",
@@ -17,39 +19,31 @@
     "introspection"
   ],
   "license": "MIT",
-  "repository": "github:jcbhmr/node-util",
-  "imports": {
-    "#internal/*": "./src/internal/*.js",
-    "#primordials": "./src/internal/$primordials.js",
-    "#internalBinding(types)": "./src/internal/$internalBinding(types).js"
-  },
+  "repository": "github:nodefill/util",
   "exports": {
     ".": {
-      "node": "./src/util-node.js",
-      "default": "./src/util.js"
+      "node": "./dist/index-node.js",
+      "default": "./dist/index.js"
     },
-    "./types": {
-      "node": "./src/util/types-node.js",
-      "default": "./src/util/types.js"
-    }
+    "./*.js": {
+      "node": "./dist/*-node.js",
+      "default": "./dist/*.js"
+    },
+    "./internal/*": null
   },
   "scripts": {
-    "pretest": "standard --fix",
-    "test": "node --test",
-    "build:docs": "echo '{}' >tsconfig.json && typedoc; rm tsconfig.json"
-  },
-  "typedocOptions": {
-    "entryPoints": [
-      "src/util.d.ts",
-      "src/util/types.d.ts"
-    ],
-    "out": "docs/dist"
+    "build": "node build.mjs",
+    "pretest": "npm run build",
+    "test": "node --test"
   },
   "devDependencies": {
     "@types/node": "^20.2.5",
-    "standard": "^17.1.0",
-    "tsx": "^3.12.7",
-    "typedoc": "^0.24.8",
+    "prettier": "^2.8.8",
+    "prettier-plugin-jsdoc": "^0.4.2",
+    "prettier-plugin-packagejson": "^2.4.3",
     "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "@nodefill/primordials": "^2.0.0"
   }
 }

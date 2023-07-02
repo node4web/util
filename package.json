@@ -11,6 +11,7 @@
     "introspection"
   ],
   "homepage": "https://github.com/nodefill/util#readme",
+  "bugs": "https://github.com/nodefill/util/issues",
   "repository": "github:nodefill/util",
   "license": "MIT",
   "contributors": [

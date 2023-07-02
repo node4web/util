@@ -1,15 +1,7 @@
 {
-  "type": "commonjs",
   "name": "@nodefill/util",
-  "description": "🧰 node:util for use anywhere",
   "version": "1.0.0",
-  "contributors": [
-    "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)"
-  ],
-  "files": [
-    "dist"
-  ],
-  "homepage": "https://github.com/nodefill/util#readme",
+  "description": "🧰 node:util for use anywhere",
   "keywords": [
     "util",
     "nodejs",
@@ -18,12 +10,21 @@
     "typechecking",
     "introspection"
   ],
-  "license": "MIT",
+  "homepage": "https://github.com/nodefill/util#readme",
   "repository": "github:nodefill/util",
+  "license": "MIT",
+  "contributors": [
+    "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)"
+  ],
+  "type": "commonjs",
   "exports": {
     ".": {
       "node": "./dist/index-node.js",
       "default": "./dist/index.js"
+    },
+    "./types": {
+      "node": "./dist/types/index-node.js",
+      "default": "./dist/types/index.js"
     },
     "./*.js": {
       "node": "./dist/*-node.js",
@@ -31,10 +32,17 @@
     },
     "./internal/*": null
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "node build.mjs",
+    "lint": "prettier --ignore-path .gitignore -w . && tsc --noEmit",
     "pretest": "npm run build",
     "test": "node --test"
+  },
+  "dependencies": {
+    "@nodefill/primordials": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.2.5",
@@ -42,8 +50,5 @@
     "prettier-plugin-jsdoc": "^0.4.2",
     "prettier-plugin-packagejson": "^2.4.3",
     "typescript": "^5.1.3"
-  },
-  "dependencies": {
-    "@nodefill/primordials": "^2.0.0"
   }
 }

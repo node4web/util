@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert";
 import { isModuleNamespaceObject } from "node:util/types";
-import isModuleNamespaceObjectShim from "../dist/isModuleNamespaceObject.js";
+import isModuleNamespaceObjectShim from "../../dist/types/isModuleNamespaceObject.js";
 
 test("isModuleNamespaceObject({})", () => {
   assert.equal(isModuleNamespaceObjectShim({}), isModuleNamespaceObject({}));

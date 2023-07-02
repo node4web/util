@@ -6,7 +6,13 @@ console.debug("process.version", process.version);
 
 for (const name of Object.getOwnPropertyNames(utilTypes)) {
   test(`exports ${name}`, async () => {
-    const index = await import("../dist/index-node.js");
-    assert(name in index);
+    const index = await import("../../dist/types/index-node.js");
+    assert(name in index, `missing ${name}`);
+  });
+}
+
+for (const name of Object.getOwnPropertyNames(utilTypes)) {
+  test(`file types/${name}-node.js importable`, async () => {
+    await import(`../../dist/types/${name}-node.js`);
   });
 }

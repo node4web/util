@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert";
 import { isGeneratorObject } from "node:util/types";
-import isGeneratorObjectShim from "../dist/isGeneratorObject.js";
+import isGeneratorObjectShim from "../../dist/types/isGeneratorObject.js";
 
 function* generatorFunction() {}
 async function* asyncGeneratorFunction() {}

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert";
 import { isArgumentsObject } from "node:util/types";
-import isArgumentsObjectShim from "../dist/isArgumentsObject.js";
+import isArgumentsObjectShim from "../../dist/types/isArgumentsObject.js";
 
 function getArgumentsObject() {
   return arguments;

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert";
 import { isGeneratorFunction } from "node:util/types";
-import isGeneratorFunctionShim from "../dist/isGeneratorFunction.js";
+import isGeneratorFunctionShim from "../../dist/types/isGeneratorFunction.js";
 
 test("isGeneratorFunction(function* () {})", () => {
   assert.equal(

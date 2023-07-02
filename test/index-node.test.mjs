@@ -7,13 +7,7 @@ console.debug("process.version", process.version);
 for (const name of Object.getOwnPropertyNames(util)) {
   test(`exports ${name}`, async () => {
     const index = await import("../dist/index-node.js");
-    assert(name in index);
-  });
-}
-for (const name of Object.getOwnPropertyNames(util.types)) {
-  test(`exports types.${name}`, async () => {
-    const { types } = await import("../dist/index-node.js");
-    assert(name in types);
+    assert(name in index, `missing ${name}`);
   });
 }
 

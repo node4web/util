@@ -41,3 +41,4 @@ exports.isUint16Array = require("./isUint16Array.js");
 exports.isUint32Array = require("./isUint32Array.js");
 exports.isWeakMap = require("./isWeakMap.js");
 exports.isWeakSet = require("./isWeakSet.js");
+// exports.isWebAssemblyCompiledModule = ;

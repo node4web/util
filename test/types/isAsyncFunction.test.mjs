@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert";
 import { isAsyncFunction } from "node:util/types";
-import isAsyncFunctionShim from "../dist/isAsyncFunction.js";
+import isAsyncFunctionShim from "../../dist/types/isAsyncFunction.js";
 
 test("isAsyncFunction(function* () {})", () => {
   assert.equal(

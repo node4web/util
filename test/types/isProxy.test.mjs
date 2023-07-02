@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert";
 import primordials from "@nodefill/primordials";
 import { isProxy } from "node:util/types";
-import isProxyShim from "../dist/isProxy.js";
+import isProxyShim from "../../dist/types/isProxy.js";
 
 test("isProxy(new Proxy())", () => {
   assert.equal(isProxyShim(new Proxy({}, {})), isProxy(new Proxy({}, {})));

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert";
 import primordials from "@nodefill/primordials";
 import { isNativeError } from "node:util/types";
-import isNativeErrorShim from "../dist/isNativeError.js";
+import isNativeErrorShim from "../../dist/types/isNativeError.js";
 
 test("isNativeError(new Error())", () => {
   assert.equal(isNativeErrorShim(new Error()), isNativeError(new Error()));

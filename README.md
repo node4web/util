@@ -17,11 +17,13 @@ npm install util
 ## Usage
 
 ```javascript
-var util = require('util')
-var EventEmitter = require('events')
+var util = require("util");
+var EventEmitter = require("events");
 
-function MyClass() { EventEmitter.call(this) }
-util.inherits(MyClass, EventEmitter)
+function MyClass() {
+  EventEmitter.call(this);
+}
+util.inherits(MyClass, EventEmitter);
 ```
 
 ## Browser Support
@@ -32,7 +34,7 @@ To use `util.promisify` and `util.callbackify`, Promises must already be availab
 
 ## API
 
-See the [Node.js util docs][util].  `util` currently supports the Node 8 LTS API. However, some of the methods are outdated. The `inspect` and `format` methods included in this module are a lot more simple and barebones than the ones in Node.js.
+See the [Node.js util docs][util]. `util` currently supports the Node 8 LTS API. However, some of the methods are outdated. The `inspect` and `format` methods included in this module are a lot more simple and barebones than the ones in Node.js.
 
 ## Contributing
 

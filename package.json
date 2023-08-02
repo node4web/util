@@ -21,29 +21,196 @@
   "exports": {
     ".": {
       "node": "./dist/index-node.js",
-      "default": "./dist/index.js"
+      "default": "./dist/index-default.js"
     },
     "./types": {
       "node": "./dist/types/index-node.js",
-      "default": "./dist/types/index.js"
+      "default": "./dist/types/index-default.js"
     },
-    "./*.js": {
-      "node": "./dist/*-node.js",
-      "default": "./dist/*.js"
+    "./types/isArrayBuffer.js": {
+      "node": "./dist/types/isArrayBuffer-node.js",
+      "default": "./dist/types/isArrayBuffer-default.js"
     },
-    "./internal/*": null
+    "./types/isBigInt64Array.js": {
+      "node": "./dist/types/isBigInt64Array-node.js",
+      "default": "./dist/types/isBigInt64Array-default.js"
+    },
+    "./types/isBooleanObject.js": {
+      "node": "./dist/types/isBooleanObject-node.js",
+      "default": "./dist/types/isBooleanObject-default.js"
+    },
+    "./types/isDataView.js": {
+      "node": "./dist/types/isDataView-node.js",
+      "default": "./dist/types/isDataView-default.js"
+    },
+    "./types/isFloat32Array.js": {
+      "node": "./dist/types/isFloat32Array-node.js",
+      "default": "./dist/types/isFloat32Array-default.js"
+    },
+    "./types/isGeneratorObject.js": {
+      "node": "./dist/types/isGeneratorObject-node.js",
+      "default": "./dist/types/isGeneratorObject-default.js"
+    },
+    "./types/isInt8Array.js": {
+      "node": "./dist/types/isInt8Array-node.js",
+      "default": "./dist/types/isInt8Array-default.js"
+    },
+    "./types/isMapIterator.js": {
+      "node": "./dist/types/isMapIterator-node.js",
+      "default": "./dist/types/isMapIterator-default.js"
+    },
+    "./types/isNumberObject.js": {
+      "node": "./dist/types/isNumberObject-node.js",
+      "default": "./dist/types/isNumberObject-default.js"
+    },
+    "./types/isRegExp.js": {
+      "node": "./dist/types/isRegExp-node.js",
+      "default": "./dist/types/isRegExp-default.js"
+    },
+    "./types/isSharedArrayBuffer.js": {
+      "node": "./dist/types/isSharedArrayBuffer-node.js",
+      "default": "./dist/types/isSharedArrayBuffer-default.js"
+    },
+    "./types/isTypedArray.js": {
+      "node": "./dist/types/isTypedArray-node.js",
+      "default": "./dist/types/isTypedArray-default.js"
+    },
+    "./types/isUint8Array.js": {
+      "node": "./dist/types/isUint8Array-node.js",
+      "default": "./dist/types/isUint8Array-default.js"
+    },
+    "./types/isWeakSet.js": {
+      "node": "./dist/types/isWeakSet-node.js",
+      "default": "./dist/types/isWeakSet-default.js"
+    },
+    "./types/isAnyArrayBuffer.js": {
+      "node": "./dist/types/isAnyArrayBuffer-node.js",
+      "default": "./dist/types/isAnyArrayBuffer-default.js"
+    },
+    "./types/isArrayBufferView.js": {
+      "node": "./dist/types/isArrayBufferView-node.js",
+      "default": "./dist/types/isArrayBufferView-default.js"
+    },
+    "./types/isBigIntObject.js": {
+      "node": "./dist/types/isBigIntObject-node.js",
+      "default": "./dist/types/isBigIntObject-default.js"
+    },
+    "./types/isBoxedPrimitive.js": {
+      "node": "./dist/types/isBoxedPrimitive-node.js",
+      "default": "./dist/types/isBoxedPrimitive-default.js"
+    },
+    "./types/isDate.js": {
+      "node": "./dist/types/isDate-node.js",
+      "default": "./dist/types/isDate-default.js"
+    },
+    "./types/isFloat64Array.js": {
+      "node": "./dist/types/isFloat64Array-node.js",
+      "default": "./dist/types/isFloat64Array-default.js"
+    },
+    "./types/isInt16Array.js": {
+      "node": "./dist/types/isInt16Array-node.js",
+      "default": "./dist/types/isInt16Array-default.js"
+    },
+    "./types/isKeyObject.js": {
+      "node": "./dist/types/isKeyObject-node.js",
+      "default": "./dist/types/isKeyObject-default.js"
+    },
+    "./types/isModuleNamespaceObject.js": {
+      "node": "./dist/types/isModuleNamespaceObject-node.js",
+      "default": "./dist/types/isModuleNamespaceObject-default.js"
+    },
+    "./types/isPromise.js": {
+      "node": "./dist/types/isPromise-node.js",
+      "default": "./dist/types/isPromise-default.js"
+    },
+    "./types/isSet.js": {
+      "node": "./dist/types/isSet-node.js",
+      "default": "./dist/types/isSet-default.js"
+    },
+    "./types/isStringObject.js": {
+      "node": "./dist/types/isStringObject-node.js",
+      "default": "./dist/types/isStringObject-default.js"
+    },
+    "./types/isUint16Array.js": {
+      "node": "./dist/types/isUint16Array-node.js",
+      "default": "./dist/types/isUint16Array-default.js"
+    },
+    "./types/isUint8ClampedArray.js": {
+      "node": "./dist/types/isUint8ClampedArray-node.js",
+      "default": "./dist/types/isUint8ClampedArray-default.js"
+    },
+    "./types/isArgumentsObject.js": {
+      "node": "./dist/types/isArgumentsObject-node.js",
+      "default": "./dist/types/isArgumentsObject-default.js"
+    },
+    "./types/isAsyncFunction.js": {
+      "node": "./dist/types/isAsyncFunction-node.js",
+      "default": "./dist/types/isAsyncFunction-default.js"
+    },
+    "./types/isBigUint64Array.js": {
+      "node": "./dist/types/isBigUint64Array-node.js",
+      "default": "./dist/types/isBigUint64Array-default.js"
+    },
+    "./types/isCryptoKey.js": {
+      "node": "./dist/types/isCryptoKey-node.js",
+      "default": "./dist/types/isCryptoKey-default.js"
+    },
+    "./types/isExternal.js": {
+      "node": "./dist/types/isExternal-node.js",
+      "default": "./dist/types/isExternal-default.js"
+    },
+    "./types/isGeneratorFunction.js": {
+      "node": "./dist/types/isGeneratorFunction-node.js",
+      "default": "./dist/types/isGeneratorFunction-default.js"
+    },
+    "./types/isInt32Array.js": {
+      "node": "./dist/types/isInt32Array-node.js",
+      "default": "./dist/types/isInt32Array-default.js"
+    },
+    "./types/isMap.js": {
+      "node": "./dist/types/isMap-node.js",
+      "default": "./dist/types/isMap-default.js"
+    },
+    "./types/isNativeError.js": {
+      "node": "./dist/types/isNativeError-node.js",
+      "default": "./dist/types/isNativeError-default.js"
+    },
+    "./types/isProxy.js": {
+      "node": "./dist/types/isProxy-node.js",
+      "default": "./dist/types/isProxy-default.js"
+    },
+    "./types/isSetIterator.js": {
+      "node": "./dist/types/isSetIterator-node.js",
+      "default": "./dist/types/isSetIterator-default.js"
+    },
+    "./types/isSymbolObject.js": {
+      "node": "./dist/types/isSymbolObject-node.js",
+      "default": "./dist/types/isSymbolObject-default.js"
+    },
+    "./types/isUint32Array.js": {
+      "node": "./dist/types/isUint32Array-node.js",
+      "default": "./dist/types/isUint32Array-default.js"
+    },
+    "./types/isWeakMap.js": {
+      "node": "./dist/types/isWeakMap-node.js",
+      "default": "./dist/types/isWeakMap-default.js"
+    },
+    "./lib/*": null,
+    "./*.js": "./dist/*.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "node build.mjs",
-    "lint": "prettier --ignore-path .gitignore -w . && tsc --noEmit",
-    "pretest": "npm run build",
-    "test": "node --test"
+    "build": "tsc",
+    "lint": "prettier -w . && tsc --noEmit",
+    "test": "vitest",
+    "build:docs": "typedoc",
+    "docs:preview": "npx -y serve docs"
   },
-  "dependencies": {
-    "@nodefill/primordials": "^2.0.0"
+  "typedocOptions": {
+    "entryPoints": ["src/index-default.ts"],
+    "skipErrorChecking": true
   },
   "devDependencies": {
     "@types/node": "^20.2.5",

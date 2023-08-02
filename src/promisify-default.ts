@@ -1,80 +1,38 @@
-const SymbolFor = require("@nodefill/primordials/SymbolFor.js");
-const ObjectDefineProperty = require("@nodefill/primordials/ObjectDefineProperty.js");
-const ArrayPrototypePush = require("@nodefill/primordials/ArrayPrototypePush.js");
-const ReflectApply = require("@nodefill/primordials/ReflectApply.js");
-const ObjectSetPrototypeOf = require("@nodefill/primordials/ObjectSetPrototypeOf.js");
-const ObjectGetPrototypeOf = require("@nodefill/primordials/ObjectGetPrototypeOf.js");
-const ObjectGetOwnPropertyDescriptors = require("@nodefill/primordials/ObjectGetOwnPropertyDescriptors.js");
-const ObjectValues = require("@nodefill/primordials/ObjectValues.js");
-const ObjectDefineProperties = require("@nodefill/primordials/ObjectDefineProperties.js");
-const TypeError = require("@nodefill/primordials/TypeError.js");
-
-const PromisifySymbolCustom = SymbolFor("nodejs.util.promisify.custom");
-const PromisifySymbolCustomArgs = SymbolFor("customPromisifyArgs");
-
-/**
- * @param {(...args: any[]) => any} original
- * @returns {(...args: any[]) => Promise<any>}
- */
-function promisify(original) {
-  if (typeof original !== "function") {
-    throw new TypeError(`${original} is not a function`);
+// prettier-ignore
+function promisify<T extends ((...a: any[]) => any) & { [promisify.custom]: any }>(f: T): T[typeof promisify.custom];
+// prettier-ignore
+function promisify<A extends any[], R>(f: (...a: [...A, (error: any, value: R) => any]) => any): (...a: A) => Promise<R>;
+function promisify(f: (...a: any[]) => any): (...a: any[]) => Promise<any> {
+  if (typeof f !== "function") {
+    throw new TypeError(`${f} is not a function`);
   }
 
-  if (original[PromisifySymbolCustom]) {
-    const fn = original[PromisifySymbolCustom];
-
-    if (typeof fn !== "function") {
-      throw new TypeError(`${fn} is not a function`);
+  if (f[promisify.custom]) {
+    const promisified = f[promisify.custom];
+    if (typeof promisified !== "function") {
+      throw new TypeError(`${promisified} is not a function`);
     }
-
-    return ObjectDefineProperty(fn, PromisifySymbolCustom, {
-      __proto__: null,
-      value: fn,
-      enumerable: false,
-      writable: false,
-      configurable: true,
-    });
+    return promisified;
   }
 
-  const argumentNames = original[PromisifySymbolCustomArgs];
-
-  function fn(...args) {
+  function promisified(...args: any[]): Promise<any> {
     return new Promise((resolve, reject) => {
-      ArrayPrototypePush(args, (err, ...values) => {
-        if (err) {
-          return reject(err);
-        }
-        if (argumentNames !== undefined && values.length > 1) {
-          const obj = {};
-          for (let i = 0; i < argumentNames.length; i++)
-            obj[argumentNames[i]] = values[i];
-          resolve(obj);
+      const callback = (error: any, value: any) => {
+        if (error) {
+          reject(error);
         } else {
-          resolve(values[0]);
+          resolve(value);
         }
-      });
-      ReflectApply(original, this, args);
+      };
+      f.call(this, ...args, callback);
     });
   }
-
-  ObjectSetPrototypeOf(fn, ObjectGetPrototypeOf(original));
-
-  ObjectDefineProperty(fn, PromisifySymbolCustom, {
-    __proto__: null,
-    value: fn,
-    enumerable: false,
-    writable: false,
-    configurable: true,
-  });
-
-  const descriptors = ObjectGetOwnPropertyDescriptors(original);
-  const propertiesValues = ObjectValues(descriptors);
-  for (let i = 0; i < propertiesValues.length; i++) {
-    ObjectSetPrototypeOf(propertiesValues[i], null);
-  }
-  return ObjectDefineProperties(fn, descriptors);
+  promisified[promisify.custom] = promisified;
+  return promisified;
 }
-promisify.custom = PromisifySymbolCustom;
+declare namespace promisify {
+  export const custom: unique symbol;
+}
+promisify["" + "custom"] = Symbol.for("nodejs.util.promisify.custom");
 
-module.exports = promisify;
+export = promisify;

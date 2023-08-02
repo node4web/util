@@ -2,22 +2,20 @@
   "name": "@nodefill/util",
   "version": "0.1.0",
   "description": "🧰 node:util for use anywhere",
-  "keywords": [
-    "util",
-    "nodejs",
-    "polyfill",
-    "types",
-    "typechecking",
-    "introspection"
-  ],
-  "homepage": "https://github.com/nodefill/util#readme",
-  "bugs": "https://github.com/nodefill/util/issues",
-  "repository": "github:nodefill/util",
   "license": "MIT",
   "contributors": [
     "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)"
   ],
+  "homepage": "https://github.com/nodefill/util#readme",
+  "repository": "github:nodefill/util",
+  "bugs": "https://github.com/nodefill/util/issues",
   "type": "commonjs",
+  "imports": {
+    "#lib/getMainArgs.js": {
+      "browser": "./dist/lib/getMainArgs-browser.js",
+      "default": "./dist/lib/getMainArgs-default.js"
+    }
+  },
   "exports": {
     ".": {
       "node": "./dist/index-node.js",
@@ -203,20 +201,29 @@
   ],
   "scripts": {
     "build": "tsc",
-    "lint": "prettier -w . && tsc --noEmit",
-    "test": "vitest",
     "build:docs": "typedoc",
-    "docs:preview": "npx -y serve docs"
-  },
-  "typedocOptions": {
-    "entryPoints": ["src/index-default.ts"],
-    "skipErrorChecking": true
+    "docs:preview": "npx -y serve docs",
+    "lint": "prettier -w . && tsc --noEmit",
+    "test": "vitest"
   },
   "devDependencies": {
     "@types/node": "^20.2.5",
-    "prettier": "^2.8.8",
-    "prettier-plugin-jsdoc": "^0.4.2",
-    "prettier-plugin-packagejson": "^2.4.3",
-    "typescript": "^5.1.3"
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.3",
+    "vitest": "^0.34.1"
+  },
+  "keywords": [
+    "introspection",
+    "nodejs",
+    "polyfill",
+    "typechecking",
+    "types",
+    "util"
+  ],
+  "typedocOptions": {
+    "entryPoints": [
+      "src/index-default.ts"
+    ],
+    "skipErrorChecking": true
   }
 }

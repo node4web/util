@@ -1,15 +1,11 @@
-const uncurryThis = require("@nodefill/primordials/uncurryThis.js");
-const StringPrototype = require("@nodefill/primordials/StringPrototype.js");
-
-const StringPrototypeToWellFormed =
-  StringPrototype.toWellFormed && uncurryThis(StringPrototype.toWellFormed);
-
-let toUSVString;
-if (StringPrototypeToWellFormed) {
-  toUSVString = StringPrototypeToWellFormed;
+let toUSVString: (s: string) => string;
+// @ts-ignore
+if (String.prototype.toWellFormed) {
+  // @ts-ignore
+  toUSVString = Object.call.bind(String.prototype.toWellFormed);
 } else {
-  toUSVString = require("./internal/String_toWellFormed.js");
+  toUSVString =
+    require("./lib/StringPrototypeToWellFormed.js") as typeof import("./lib/StringPrototypeToWellFormed.js");
 }
 
-/** @type {(s: string) => string} */
-module.exports = toUSVString;
+export = toUSVString;

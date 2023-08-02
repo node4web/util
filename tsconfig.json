@@ -8,7 +8,10 @@
     "moduleResolution": "NodeNext",
     "isolatedModules": true,
     "strict": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "#lib/getMainArgs.js": ["src/lib/getMainArgs-default.ts"]
+    }
   },
   "include": ["src"]
 }

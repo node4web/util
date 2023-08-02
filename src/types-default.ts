@@ -1,1 +1,3 @@
-module.exports = require("./types/index.js");
+import * as types from "./types/index-default.js";
+
+export = types;

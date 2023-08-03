@@ -1,5 +1,3 @@
-export { default as _errnoException } from "./_errnoException-default.js";
-export { default as _exceptionWithHostPort } from "./_exceptionWithHostPort-default.js";
 export { default as _extend } from "./_extend-default.js";
 export { default as aborted } from "./aborted-default.js";
 export { default as callbackify } from "./callbackify-default.js";

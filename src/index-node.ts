@@ -1,0 +1,44 @@
+import util from "node:util";
+
+exports._extend =
+  exports.aborted =
+  exports.callbackify =
+  exports.debug =
+  exports.debuglog =
+  exports.deprecate =
+  exports.format =
+  exports.formatWithOptions =
+  exports.getSystemErrorMap =
+  exports.getSystemErrorName =
+  exports.inherits =
+  exports.inspect =
+  exports.isArray =
+  exports.isBoolean =
+  exports.isBuffer =
+  exports.isDate =
+  exports.isDeepStrictEqual =
+  exports.isError =
+  exports.isFunction =
+  exports.isNull =
+  exports.isNullOrUndefined =
+  exports.isNumber =
+  exports.isObject =
+  exports.isPrimitive =
+  exports.isRegExp =
+  exports.isString =
+  exports.isSymbol =
+  exports.isUndefined =
+  exports.log =
+  exports.MIMEParams =
+  exports.MIMEType =
+  exports.parseArgs =
+  exports.promisify =
+  exports.stripVTControlCharacters =
+  exports.TextDecoder =
+  exports.TextEncoder =
+  exports.toUSVString =
+  exports.transferableAbortController =
+  exports.transferableAbortSignal =
+  exports.types =
+    void 0;
+export = util;

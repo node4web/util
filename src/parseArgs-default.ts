@@ -61,7 +61,7 @@ function parseArgs<T extends ParseArgsConfig>(
       }
 
       const actualValue = token.value ?? true;
-      if (options[token.name].multiple) {
+      if (options[token.name]?.multiple) {
         if (result.values[token.name] === undefined) {
           result.values[token.name] = [];
         }

@@ -1,4 +1,7 @@
-type TypedArray =
+/** @see https://nodejs.org/api/util.html#utiltypesistypedarrayvalue */
+export = function isTypedArray(
+  x: any
+): x is
   | Int8Array
   | Uint8Array
   | Uint8ClampedArray
@@ -9,17 +12,12 @@ type TypedArray =
   | Float32Array
   | Float64Array
   | BigInt64Array
-  | BigUint64Array;
-
-/** @see https://nodejs.org/api/util.html#utiltypesistypedarrayvalue */
-function isTypedArray(x: any): x is TypedArray {
+  | BigUint64Array {
   return (
     Reflect.get(
       Object.getPrototypeOf(Uint8Array).prototype,
       Symbol.toStringTag,
-      x,
+      x
     ) != null
   );
-}
-
-export = isTypedArray;
+};

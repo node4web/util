@@ -1,6 +1,6 @@
 {
   "name": "@nodefill/util",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "🧰 node:util for use anywhere",
   "license": "MIT",
   "contributors": [
@@ -24,6 +24,166 @@
     "./types": {
       "node": "./dist/types/index-node.js",
       "default": "./dist/types/index-default.js"
+    },
+    "./_extend.js": {
+      "node": "./dist/_extend-node.js",
+      "default": "./dist/_extend-default.js"
+    },
+    "./callbackify.js": {
+      "node": "./dist/callbackify-node.js",
+      "default": "./dist/callbackify-default.js"
+    },
+    "./debug.js": {
+      "node": "./dist/debug-node.js",
+      "default": "./dist/debug-default.js"
+    },
+    "./debuglog.js": {
+      "node": "./dist/debuglog-node.js",
+      "default": "./dist/debuglog-default.js"
+    },
+    "./deprecate.js": {
+      "node": "./dist/deprecate-node.js",
+      "default": "./dist/deprecate-default.js"
+    },
+    "./format.js": {
+      "node": "./dist/format-node.js",
+      "default": "./dist/format-default.js"
+    },
+    "./formatWithOptions.js": {
+      "node": "./dist/formatWithOptions-node.js",
+      "default": "./dist/formatWithOptions-default.js"
+    },
+    "./getSystemErrorMap.js": {
+      "node": "./dist/getSystemErrorMap-node.js",
+      "default": "./dist/getSystemErrorMap-default.js"
+    },
+    "./getSystemErrorName.js": {
+      "node": "./dist/getSystemErrorName-node.js",
+      "default": "./dist/getSystemErrorName-default.js"
+    },
+    "./inherits.js": {
+      "node": "./dist/inherits-node.js",
+      "default": "./dist/inherits-default.js"
+    },
+    "./inspect.js": {
+      "node": "./dist/inspect-node.js",
+      "default": "./dist/inspect-default.js"
+    },
+    "./isArray.js": {
+      "node": "./dist/isArray-node.js",
+      "default": "./dist/isArray-default.js"
+    },
+    "./isBoolean.js": {
+      "node": "./dist/isBoolean-node.js",
+      "default": "./dist/isBoolean-default.js"
+    },
+    "./isBuffer.js": {
+      "node": "./dist/isBuffer-node.js",
+      "default": "./dist/isBuffer-default.js"
+    },
+    "./isDeepStrictEqual.js": {
+      "node": "./dist/isDeepStrictEqual-node.js",
+      "default": "./dist/isDeepStrictEqual-default.js"
+    },
+    "./isNull.js": {
+      "node": "./dist/isNull-node.js",
+      "default": "./dist/isNull-default.js"
+    },
+    "./isNullOrUndefined.js": {
+      "node": "./dist/isNullOrUndefined-node.js",
+      "default": "./dist/isNullOrUndefined-default.js"
+    },
+    "./isNumber.js": {
+      "node": "./dist/isNumber-node.js",
+      "default": "./dist/isNumber-default.js"
+    },
+    "./isString.js": {
+      "node": "./dist/isString-node.js",
+      "default": "./dist/isString-default.js"
+    },
+    "./isSymbol.js": {
+      "node": "./dist/isSymbol-node.js",
+      "default": "./dist/isSymbol-default.js"
+    },
+    "./isUndefined.js": {
+      "node": "./dist/isUndefined-node.js",
+      "default": "./dist/isUndefined-default.js"
+    },
+    "./isRegExp.js": {
+      "node": "./dist/isRegExp-node.js",
+      "default": "./dist/isRegExp-default.js"
+    },
+    "./isObject.js": {
+      "node": "./dist/isObject-node.js",
+      "default": "./dist/isObject-default.js"
+    },
+    "./isDate.js": {
+      "node": "./dist/isDate-node.js",
+      "default": "./dist/isDate-default.js"
+    },
+    "./isError.js": {
+      "node": "./dist/isError-node.js",
+      "default": "./dist/isError-default.js"
+    },
+    "./isFunction.js": {
+      "node": "./dist/isFunction-node.js",
+      "default": "./dist/isFunction-default.js"
+    },
+    "./isPrimitive.js": {
+      "node": "./dist/isPrimitive-node.js",
+      "default": "./dist/isPrimitive-default.js"
+    },
+    "./log.js": {
+      "node": "./dist/log-node.js",
+      "default": "./dist/log-default.js"
+    },
+    "./promisify.js": {
+      "node": "./dist/promisify-node.js",
+      "default": "./dist/promisify-default.js"
+    },
+    "./stripVTControlCharacters.js": {
+      "node": "./dist/stripVTControlCharacters-node.js",
+      "default": "./dist/stripVTControlCharacters-default.js"
+    },
+    "./toUSVString.js": {
+      "node": "./dist/toUSVString-node.js",
+      "default": "./dist/toUSVString-default.js"
+    },
+    "./transferableAbortSignal.js": {
+      "node": "./dist/transferableAbortSignal-node.js",
+      "default": "./dist/transferableAbortSignal-default.js"
+    },
+    "./transferableAbortController.js": {
+      "node": "./dist/transferableAbortController-node.js",
+      "default": "./dist/transferableAbortController-default.js"
+    },
+    "./aborted.js": {
+      "node": "./dist/aborted-node.js",
+      "default": "./dist/aborted-default.js"
+    },
+    "./types.js": {
+      "node": "./dist/types-node.js",
+      "default": "./dist/types-default.js"
+    },
+    "./parseArgs.js": {
+      "node": "./dist/parseArgs-node.js",
+      "default": "./dist/parseArgs-default.js"
+    },
+    "./TextDecoder.js": {
+      "node": "./dist/TextDecoder-node.js",
+      "default": "./dist/TextDecoder-default.js"
+    },
+    "./TextEncoder.js": {
+      "node": "./dist/TextEncoder-node.js",
+      "default": "./dist/TextEncoder-default.js"
+    },
+    "./MIMEType.js": {
+      "node": "./dist/MIMEType-node.js",
+      "default": "./dist/MIMEType-default.js"
+    },
+    "./MIMEParams.js": {
+      "node": "./dist/MIMEParams-node.js",
+      "default": "./dist/MIMEParams-default.js"
     },
     "./types/isArrayBuffer.js": {
       "node": "./dist/types/isArrayBuffer-node.js",
@@ -209,6 +369,7 @@
   "devDependencies": {
     "@types/node": "^20.2.5",
     "prettier": "^3.0.0",
+    "typedoc": "^0.24.8",
     "typescript": "^5.1.3",
     "vitest": "^0.34.1"
   },
@@ -221,6 +382,9 @@
     "util"
   ],
   "typedocOptions": {
+    "navigationLinks": {
+      "GitHub": "https://github.com/nodefill/util"
+    },
     "entryPoints": [
       "src/index-default.ts"
     ],

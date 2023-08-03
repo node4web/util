@@ -1,23 +1,18 @@
-![🚧 Under construction 👷‍♂️](https://i.imgur.com/LEP2R3N.png)
+# `node:util` ponyfill
 
-# `node:util/types` ponyfill
-
-🔎 A ponyfill of the typechecking functions from [`node:util/types`]
+🧰 [`node:util`] for use anywhere
 
 <div align="center">
 
-![](https://user-images.githubusercontent.com/61068799/250212103-c280dfa3-d68a-4e1e-b289-c471398bbb64.png)
+![](https://i.imgur.com/mqtU8Ik.png)
 
 </div>
 
-✅ As correct as possible \
+✅ Mostly correct \
 📦 Works with Node.js, Deno, Bun, and the browser \
-🔬 Has TypeScript types using JSDoc \
-✨ Uses the `node:util/types` native package if available \
+🔬 Has TypeScript types \
+✨ Uses the `node:util` native package if available \
 ⚠️ Distributed as CommonJS for widest compatibility
-
-👀 Also check out the complete [@nodefill/util] package! It uses this package
-for the `util.types` namespace.
 
 ## Installation
 
@@ -26,18 +21,25 @@ for the `util.types` namespace.
 ![pnpm](https://img.shields.io/static/v1?style=for-the-badge&message=pnpm&color=222222&logo=pnpm&logoColor=F69220&label=)
 ![jsDelivr](https://img.shields.io/static/v1?style=for-the-badge&message=jsDelivr&color=E84D3D&logo=jsDelivr&logoColor=FFFFFF&label=)
 
+You can install this package via npm, [pnpm], or [Yarn]. It's also available on
+npm CDNs like [jsDelivr] and [esm.sh] if you want to import it straight from
+your browser!
+
 ```sh
-npm install @nodefill/util-types
+npm install @nodefill/util
 ```
 
 ```js
-import {} from "npm:@nodefill/util-types";
-import {} from "https://esm.sh/@nodefill/util-types";
+import {} from "https://esm.sh/@nodefill/util";
+import {} from "https://esm.run/@nodefill/util";
 ```
 
+If you're using [Deno], you can use the [new `npm:` specifier] to import this
+package straight from npm, or use the [esm.sh] CDN which has support for Deno.
+
 ```js
-import {} from "https://esm.sh/@nodefill/util-types";
-import {} from "https://esm.run/@nodefill/util-types";
+import {} from "npm:@nodefill/util";
+import {} from "https://esm.sh/@nodefill/util";
 ```
 
 ## Usage
@@ -47,56 +49,61 @@ import {} from "https://esm.run/@nodefill/util-types";
 ![Browser](https://img.shields.io/static/v1?style=for-the-badge&message=Browser&color=4285F4&logo=Google+Chrome&logoColor=FFFFFF&label=)
 ![Bun](https://img.shields.io/static/v1?style=for-the-badge&message=Bun&color=000000&logo=Bun&logoColor=FFFFFF&label=)
 
-You can import this package like normal! It will automatically use the native
-`node:util/types` package if it is available. Otherwise, you'll get some nice
-shims that replicate the functionality. This is useful when authoring packages
-intended to be used in Node.js and the browser.
+You can import this package as though it were the normal `node:util` package! It
+will automatically use the native `node:util` package if it is available.
+Otherwise, you'll get some really nice shims that replicate the functionality.
+This is useful when authoring packages intended to be used in Node.js and the
+browser.
 
 ```js
-import { isAnyArrayBuffer, isArgumentsObject } from "@nodefill/util-types";
+import { isArrayBuffer } from "@nodefill/util/types";
+import { format } from "@nodefill/util";
 
 console.log(isAnyArrayBuffer(new ArrayBuffer(1)));
 //=> true
-console.log(isArgumentsObject({ [Symbol.toStringTag]: "Arguments" }));
-//=> false
+console.dir(format("Hello %s!", "world"));
+//=> "Hello world!"
 ```
 
-### Caveats
+### Limitations
 
-⚠️ Some of the functions in this package are **very loose** (using plain-old
-`Object.prototype.toString.call()` or `Symbol.toStringTag`). Make sure you
-understand what each check does and whether or not it's looser than the native
-`node:util/types` function.
+⚠️ Some of the `util.types.*` functions in this package are **loose** (using
+plain-old `Object.prototype.toString.call()` or `Symbol.toStringTag`). Make sure
+you understand what each check does and whether or not it's looser than the
+native `node:util/types` function.
 
-For example, take `isModuleNamespaceObject()`. There's no way to be _100% sure_
-that an object originated from an `import()` statement or if it's just some
-clever `null`-prototype object with a good `Symbol.toStringTag`. The native
-Node.js `util.types.isModuleNamespaceObject()` function delegates this to the
-C++ layer which has more privileged information about the object.
-
-```js
-// Try this in your DevTools console!
-import { isModuleNamespaceObject } from "@nodefill/util-types";
-
-const realModuleNamespaceObject = await import("@nodefill/util-types");
-const fakeModuleNamespaceObject = Object.create(null);
-fakeModuleNamespaceObject[Symbol.toStringTag] = "Module";
-
-console.log(isModuleNamespaceObject(realModuleNamespaceObject));
-//=> true
-console.log(isModuleNamespaceObject(fakeModuleNamespaceObject));
-//=> true (in browser)
-```
+Some of the other utility functions like `transferableAbortSignal()` and
+`transferableAbortController()` don't really do much on non-Node.js platforms
+since Node.js is the only place you can do magic like that. They're included for
+API completeness.
 
 ## Development
 
-![JavaScript](https://img.shields.io/static/v1?style=for-the-badge&message=JavaScript&color=222222&logo=JavaScript&logoColor=F7DF1E&label=)
+![TypeScript](https://img.shields.io/static/v1?style=for-the-badge&message=TypeScript&color=3178C6&logo=TypeScript&logoColor=FFFFFF&label=)
+![Vitest](https://img.shields.io/static/v1?style=for-the-badge&message=Vitest&color=6E9F18&logo=Vitest&logoColor=FFFFFF&label=)
 
-We use JavaScript with JSDoc for type annotations. There's also a
-`tsconfig.json` so we can lint the types with `tsc`. Note that there's a
-`build.mjs` script which creates all the Node.js re-export shims. This is done
-to minimize the redundant repetition of the same code in `src/` cluttering the
-workspace.
+This package uses TypeScript! That makes it easy to co-locate types and code
+side-by-side without complicated `/** @param */` declarations that get unweildy
+with larger projects.
+
+To get started, clone this repository (or your fork) and run any of these
+commands to play around with the code:
+
+```sh
+npm test
+npm run build
+npm run build:docs
+```
+
+There's also a file naming convention where `-default.ts` files get exported via
+the `default` condition (via the [exports field] in `package.json`) and
+`-node.ts` files get exported via the `node` condition. This way, we can switch
+on "is this Node.js or something else?" _statically_ instead of at runtime. This
+helps bundlers, loading performance, and more. The convention is that if there's
+more than one file for a given export, then explicitly suffix the file name with
+said export. For non-ambiguous exports (no conditions), we don't need to do this
+explicit naming (ex: `lib/argsToTokens.ts` doesn't have alternate
+implementations, so it's plain-old `argsToTokens.ts`).
 
 **Why use CommonJS?** ESM is the onvious choice. The reason we still use
 CommonJS is because some packages may want a drop-in replacement for
@@ -110,6 +117,12 @@ package _may_ migrate to ESM-only in the future.
 to **write good CJS that imports well in ESM environments**, possibly with a
 short `index.mjs` file to wrap the main CJS part. This is what we do.
 
-[@nodefill/util]: https://github.com/nodefill/util#readme
-[`node:util/types`]: https://nodejs.org/api/util.html#utiltypes
 [dual package hazard]: https://nodejs.org/api/packages.html#dual-package-hazard
+[yarn]: https://yarnpkg.com/
+[pnpm]: https://pnpm.io/
+[jsdelivr]: https://www.jsdelivr.com/esm
+[deno]: https://deno.land/
+[new `npm:` specifier]: https://deno.land/manual@v1.35.3/node/npm_specifiers
+[esm.sh]: https://esm.sh/
+[exports field]: https://nodejs.org/api/packages.html#exports
+[`node:util`]: https://nodejs.org/api/util.html

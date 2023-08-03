@@ -1,17 +1,8 @@
 import { test, assert } from "vitest";
 import * as index from "../src/index-default.js";
 
-test("MIMEParams", () => {
-  assert("MIMEParams" in index);
-});
-test("MIMEType", () => {
-  assert("MIMEType" in index);
-});
-test("TextDecoder", () => {
-  assert("TextDecoder" in index);
-});
-test("TextEncoder", () => {
-  assert("TextEncoder" in index);
+test("_extend", () => {
+  assert("_extend" in index);
 });
 test("aborted", () => {
   assert("aborted" in index);
@@ -46,8 +37,62 @@ test("inherits", () => {
 test("inspect", () => {
   assert("inspect" in index);
 });
+test("isArray", () => {
+  assert("isArray" in index);
+});
+test("isBoolean", () => {
+  assert("isBoolean" in index);
+});
+test("isBuffer", () => {
+  assert("isBuffer" in index);
+});
+test("isDate", () => {
+  assert("isDate" in index);
+});
 test("isDeepStrictEqual", () => {
   assert("isDeepStrictEqual" in index);
+});
+test("isError", () => {
+  assert("isError" in index);
+});
+test("isFunction", () => {
+  assert("isFunction" in index);
+});
+test("isNull", () => {
+  assert("isNull" in index);
+});
+test("isNullOrUndefined", () => {
+  assert("isNullOrUndefined" in index);
+});
+test("isNumber", () => {
+  assert("isNumber" in index);
+});
+test("isObject", () => {
+  assert("isObject" in index);
+});
+test("isPrimitive", () => {
+  assert("isPrimitive" in index);
+});
+test("isRegExp", () => {
+  assert("isRegExp" in index);
+});
+test("isString", () => {
+  assert("isString" in index);
+});
+test("isSymbol", () => {
+  assert("isSymbol" in index);
+});
+test("isUndefined", () => {
+  assert("isUndefined" in index);
+});
+test("log", () => {
+  assert("log" in index);
+});
+test("MIMEParams", () => {
+  assert("MIMEParams" in index);
+});
+test("MIMEType", () => {
+  assert("MIMEType" in index);
 });
 test("parseArgs", () => {
   assert("parseArgs" in index);
@@ -57,6 +102,12 @@ test("promisify", () => {
 });
 test("stripVTControlCharacters", () => {
   assert("stripVTControlCharacters" in index);
+});
+test("TextDecoder", () => {
+  assert("TextDecoder" in index);
+});
+test("TextEncoder", () => {
+  assert("TextEncoder" in index);
 });
 test("toUSVString", () => {
   assert("toUSVString" in index);
@@ -69,52 +120,4 @@ test("transferableAbortSignal", () => {
 });
 test("types", () => {
   assert("types" in index);
-});
-test("log", () => {
-  assert("log" in index);
-});
-test("isUndefined", () => {
-  assert("isUndefined" in index);
-});
-test("isSymbol", () => {
-  assert("isSymbol" in index);
-});
-test("isString", () => {
-  assert("isString" in index);
-});
-test("isRegExp", () => {
-  assert("isRegExp" in index);
-});
-test("isPrimitive", () => {
-  assert("isPrimitive" in index);
-});
-test("isObject", () => {
-  assert("isObject" in index);
-});
-test("isNumber", () => {
-  assert("isNumber" in index);
-});
-test("isNullOrUndefined", () => {
-  assert("isNullOrUndefined" in index);
-});
-test("isNull", () => {
-  assert("isNull" in index);
-});
-test("isFunction", () => {
-  assert("isFunction" in index);
-});
-test("isError", () => {
-  assert("isError" in index);
-});
-test("isDate", () => {
-  assert("isDate" in index);
-});
-test("isBuffer", () => {
-  assert("isBuffer" in index);
-});
-test("isBoolean", () => {
-  assert("isBoolean" in index);
-});
-test("isArray", () => {
-  assert("isArray" in index);
 });

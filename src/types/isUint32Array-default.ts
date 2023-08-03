@@ -4,7 +4,7 @@ export = function isUint32Array(x: any): x is Uint32Array {
     Reflect.get(
       Object.getPrototypeOf(Uint8Array).prototype,
       Symbol.toStringTag,
-      x
+      x,
     ) === "Uint32Array"
   );
 };

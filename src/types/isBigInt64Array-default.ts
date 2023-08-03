@@ -4,7 +4,7 @@ export = function isBigInt64Array(x: any): x is BigInt64Array {
     Reflect.get(
       Object.getPrototypeOf(Uint8Array).prototype,
       Symbol.toStringTag,
-      x
+      x,
     ) === "BigInt64Array"
   );
 };

@@ -4,7 +4,7 @@ export = function isInt16Array(x: any): x is Int16Array {
     Reflect.get(
       Object.getPrototypeOf(Uint8Array).prototype,
       Symbol.toStringTag,
-      x
+      x,
     ) === "Int16Array"
   );
 };

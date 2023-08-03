@@ -4,7 +4,7 @@ export = function isFloat64Array(x: any): x is Float64Array {
     Reflect.get(
       Object.getPrototypeOf(Uint8Array).prototype,
       Symbol.toStringTag,
-      x
+      x,
     ) === "Float64Array"
   );
 };

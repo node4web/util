@@ -6,7 +6,7 @@ import isSymbolObject from "./isSymbolObject-default.js";
 
 /** @see https://nodejs.org/api/util.html#utiltypesisboxedprimitivevalue */
 export = function isBoxedPrimitive(
-  x: any
+  x: any,
 ): Number | String | Boolean | BigInt | Symbol {
   return (
     isNumberObject(x) ||

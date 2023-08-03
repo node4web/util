@@ -4,7 +4,7 @@ export = function isUint8ClampedArray(x: any): x is Uint8ClampedArray {
     Reflect.get(
       Object.getPrototypeOf(Uint8Array).prototype,
       Symbol.toStringTag,
-      x
+      x,
     ) === "Uint8ClampedArray"
   );
 };

@@ -1,6 +1,6 @@
 const GeneratorPrototype = Object.getPrototypeOf(function* () {}.prototype);
 const AsyncGeneratorPrototype = Object.getPrototypeOf(
-  async function* () {}.prototype
+  async function* () {}.prototype,
 );
 
 /** @see https://nodejs.org/api/util.html#utiltypesisgeneratorobjectvalue */

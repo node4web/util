@@ -17,7 +17,7 @@ function isTypedArray(x: any): x is TypedArray {
     Reflect.get(
       Object.getPrototypeOf(Uint8Array).prototype,
       Symbol.toStringTag,
-      x
+      x,
     ) != null
   );
 }

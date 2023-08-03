@@ -7,7 +7,7 @@ import ParsedResults, { OptionToken } from "./lib/ParsedResults.js";
 import argsToTokens from "./lib/argsToTokens.js";
 
 function parseArgs<T extends ParseArgsConfig>(
-  config: T = {} as any
+  config: T = {} as any,
 ): ParsedResults<T> {
   const {
     args = getMainArgs(),
@@ -32,7 +32,7 @@ function parseArgs<T extends ParseArgsConfig>(
         if (options[token.name] === undefined) {
           throw new DOMException(
             `Unexpected option ${token.name}`,
-            "SyntaxError"
+            "SyntaxError",
           );
         }
         if (
@@ -41,7 +41,7 @@ function parseArgs<T extends ParseArgsConfig>(
         ) {
           throw new DOMException(
             `Expected string value for ${(token as OptionToken).name}`,
-            "TypeError"
+            "TypeError",
           );
         } else if (
           options[token.name].type === "boolean" &&
@@ -49,13 +49,13 @@ function parseArgs<T extends ParseArgsConfig>(
         ) {
           throw new DOMException(
             `${token.name} does not take a value`,
-            "TypeError"
+            "TypeError",
           );
         }
         if (!token.inlineValue && token.value?.startsWith("-")) {
           throw new DOMException(
             `Unexpected option ${token.value}`,
-            "SyntaxError"
+            "SyntaxError",
           );
         }
       }
@@ -73,7 +73,7 @@ function parseArgs<T extends ParseArgsConfig>(
       if (!allowPositionals) {
         throw new DOMException(
           `Unexpected positional argument ${token.value}`,
-          "SyntaxError"
+          "SyntaxError",
         );
       }
       (result.positionals as string[]).push(token.value);

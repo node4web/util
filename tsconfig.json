@@ -10,7 +10,7 @@
     "strict": false,
     "skipLibCheck": true,
     "paths": {
-      "#lib/getMainArgs.js": ["src/lib/getMainArgs-default.ts"]
+      "#lib/getMainArgs.js": ["./src/lib/getMainArgs-default.ts"]
     }
   },
   "include": ["src"]

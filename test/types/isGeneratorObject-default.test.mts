@@ -1,4 +1,4 @@
-import { test, assert } from "vitest"
+import { test, assert } from "vitest";
 import isGeneratorObject from "../../src/types/isGeneratorObject-default.js";
 
 function* g() {}

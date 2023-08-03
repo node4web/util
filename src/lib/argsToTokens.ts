@@ -30,15 +30,18 @@ function isLongOptionAndValue(arg: string) {
 
 function findLongOptionForShort(
   shortOption: string,
-  options: ParseArgsOptionsConfig
+  options: ParseArgsOptionsConfig,
 ) {
   const longOptionEntry = Object.entries(options).find(
-    ([key, optionConfig]) => optionConfig.short === shortOption
+    ([key, optionConfig]) => optionConfig.short === shortOption,
   );
   return longOptionEntry?.[0] ?? shortOption;
 }
 
-function argsToTokens(args: string[], options: ParseArgsOptionsConfig): Token[] {
+function argsToTokens(
+  args: string[],
+  options: ParseArgsOptionsConfig,
+): Token[] {
   const tokens: Token[] = [];
   let index = -1;
   let groupCount = 0;
@@ -58,7 +61,7 @@ function argsToTokens(args: string[], options: ParseArgsOptionsConfig): Token[] 
       tokens.push(
         ...remainingArgs.map((arg) => {
           return { kind: "positional", index: ++index, value: arg } as const;
-        })
+        }),
       );
       break; // Finished processing args, leave while loop.
     }

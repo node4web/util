@@ -4,7 +4,7 @@ export = function isInt8Array(x: any): x is Int8Array {
     Reflect.get(
       Object.getPrototypeOf(Uint8Array).prototype,
       Symbol.toStringTag,
-      x
+      x,
     ) === "Int8Array"
   );
 };

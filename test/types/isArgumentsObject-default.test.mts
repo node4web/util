@@ -1,4 +1,4 @@
-import { test, assert } from "vitest"
+import { test, assert } from "vitest";
 import isArgumentsObject from "../../src/types/isArgumentsObject-default.js";
 
 test("isArgumentsObject(arguments) == true", function () {

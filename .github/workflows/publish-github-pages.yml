@@ -8,6 +8,11 @@ concurrency:
   cancel-in-progress: true
 jobs:
   publish-github-pages:
+    permissions:
+      contents: read
+      id-token: write
+      pages: write
+      deployments: write
     environment:
       name: github-pages
       url: ${{ steps.deploy-pages.outputs.page_url }}
